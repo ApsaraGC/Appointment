@@ -43,6 +43,7 @@ Route::put('/doctor/{doctor}', [DoctorController::class, 'update'])->name('docto
 Route::delete('/doctor/destroy', [DoctorController::class, 'destroy'])->name('doctor.destroy');
 
 Route::get('doctor/dashboard', [DoctorController::class, 'dashboard'])->name('doctor.dashboard');
+Route::post('doctor/find',[DoctorController::class,'findDr'])->name('appointment.doctor');
 // Patient Routes
 Route::get('/patient/create', [PatientController::class, 'create'])->name('patient.create');
 Route::post('/patient/store', [PatientController::class, 'store'])->name('patient.store');
@@ -51,6 +52,8 @@ Route::get('/patient/dashboard',[PatientController::class,'dashboard'])->name('p
 // Route::get('/patient/appointments/{patientId}', [PatientController::class, 'appointments'])->name('patient.appointments');
 Route::get('/patient/appointments', [PatientController::class, 'appointments'])->name('patient.appointments');
 Route::get('/patient/appointments/{id}', [PatientController::class, 'show'])->name('patient.appointment.show');
+
+
 
 
 Route::get('/appointment/create',[AppointmentController::class,'create'])->name('appointment.create');

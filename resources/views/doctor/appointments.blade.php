@@ -14,7 +14,7 @@
             </h2>
         </div>
 
-                    <a href="{{route('doctor.show')}}" class="btn btn-primary">Profileee</a>
+                   {{-- <a href="{{route('doctor.show')}}" class="btn btn-primary">Profileee</a> --}}
 
     </x-slot>
 

@@ -75,8 +75,8 @@
 
                 <div class="form-group">
 
-                    <label for="department">Department</label>
-                    <select id="department" name="department" class="form-control">
+                    <label for="department_id">Department</label>
+                    <select id="department_id" name="department_id" class="form-control">
                         <!-- <option value="male">Male</option>
                         <option value="female">Female</option>
                         <option value="others">Others</option> -->

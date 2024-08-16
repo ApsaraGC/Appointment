@@ -52,7 +52,7 @@
 
 
                     <td>
-                        <button style="background-color: pink">
+                       {{-- <button style="background-color: pink">
                         <!-- <a style="color: white" href="">View</a> -->
                               <a  href="{{ route('doctor.show', $doctor->id) }}">View</a>
                         </button>
@@ -67,7 +67,7 @@
                         <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this doctor?');">Delete</button>
                         </form>
 
-                     {{-- <button style="background-color: red;" >
+                      <button style="background-color: red;" >
 
                             <a style="color: white" href="{{route('doctor.destory',$doctor->id)}}" method="POST">Delete</a>
                         </button> --}}

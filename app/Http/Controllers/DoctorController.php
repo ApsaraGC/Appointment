@@ -30,7 +30,7 @@ class DoctorController extends Controller
     public function create()
     {
         //
-       // $doctors= Doctor::all();
+        // $doctors= Doctor::all();
         $departments = Department::all();
         return view('doctor.create', compact('departments'));
     }
@@ -41,37 +41,26 @@ class DoctorController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        $request->validate([
+        $doctor_validate =  $request->validate([
             'position' => 'required|string',
             'gender' => 'required|in:Male,Female,others',
             'shift' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'experience' => 'required|integer',
             'phone_number' => 'nullable|numeric',
-            'department_id'=>'required|exists:departments,id',
+            'department_id' => 'required|exists:departments,id',
         ]);
         // dd($request);
 
         $name = $request->file('image')->getClientOriginalName();
         $request->file('image')->move(public_path('images'), $name);
         $doctor_validate['image'] = $name;
+        $doctor_validate['user_id'] = $user->id;
         // dd($doctor_validate);
 
         Doctor::create($doctor_validate);
-        //return redirect()->route('doctor.index');
-        Doctor::create([
-            'user_id' => $user->id,
-            'position' => $request->position,
-            'gender' => $request->gender,
-            'shift' => $request->shift,
-            'image' => $request->image,
-            'experience' => $request->experience,
-            'phone_number' => $request->phone_number,
-            'department_id' => $request->department,
-            
-        ]);
 
-        return redirect()->route('doctor.index');
+        return redirect()->route('doctor.appointments', $user->doctor->id);
     }
 
     /**
@@ -80,7 +69,7 @@ class DoctorController extends Controller
     public function show(Doctor $doctor)
     {
         // dd($doctor);
-        return view('doctor.show',['doctor'=>$doctor]);
+        return view('doctor.show', ['doctor' => $doctor]);
         //$doctor = Doctor::findOrFail($id);
 
         //return view('doctor.show',compact('doctor'));
@@ -132,7 +121,8 @@ class DoctorController extends Controller
             ->get();
         return view('doctor.appointments', compact('appointments'));
     }
-    public function dashboard(){
+    public function dashboard()
+    {
         $doctor = Appointment::with('patient', 'department')->get();
         // $appointments = auth()->User()->patient->appointments()->with('doctor','department')->get();
         return view('patient.dashboard', compact('doctor'));
@@ -160,5 +150,17 @@ class DoctorController extends Controller
         //     'previousAppointments'=>$previousAppointments
         // ]);
     }
+    public function findDr(Request $request)
+    {
+        // dd($request);
 
+        $department_id = $request->input('department_id');
+        $department_doctors = Doctor::where('department_id', $department_id)->get();
+        // dd($department_doctors);
+        return view('doctor.doctor', [
+            'department_doctors' => $department_doctors,
+            'patient_id' => $request->input('patient_id'),
+            'department_id' => $department_id,
+        ]);
+    }
 }

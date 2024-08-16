@@ -59,17 +59,16 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
 
         $user =Auth::user();
         $patient =Patient::find($user->patient->id);
 
-        // dd($patient);
         $appointment_validate=$request->all();
         $doctorId =$appointment_validate['doctor_id'];
+
         $doctor =Doctor::with('user')->find($doctorId);
         $appointment_validate['patient_id'] =$patient->id;
-        // dd($appointment_validate);
         Appointment::create($appointment_validate);
         return redirect()->route('patient.dashboard')->with('status',[
             'message'=>'Booked Sucessfully',

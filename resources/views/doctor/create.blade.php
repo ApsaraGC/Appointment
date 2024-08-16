@@ -100,7 +100,6 @@
                     <label for="image">Image</label>
                     <input type="file" id="image" name="image" class="form-control">
                     <x-input-error :messages="$errors->get('image')" class="mt-2" />
-
                 </div>
                 <div class="form-group">
                     <!-- <label for="experience">Experience (years)</label>

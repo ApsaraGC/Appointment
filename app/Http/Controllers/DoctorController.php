@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\Department;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class DoctorController extends Controller
@@ -21,7 +22,8 @@ class DoctorController extends Controller
         // return view('doctor.appointments', compact('appointments'));
 
         $appointments = Appointment::with('patient', 'department')->get();
-        return view('doctor.appointments', compact('appointments'));
+        // return view('doctor.appointments', compact('appointments'));
+        return view('doctor.dashboard', compact('dashboard'));
     }
 
     /**
@@ -61,6 +63,7 @@ class DoctorController extends Controller
         Doctor::create($doctor_validate);
 
         return redirect()->route('doctor.appointments', $user->doctor->id);
+        // return redirect()->route('doctor.dashboard', $user->doctor->id);
     }
 
     /**
@@ -123,9 +126,9 @@ class DoctorController extends Controller
     }
     public function dashboard()
     {
-        $doctor = Appointment::with('patient', 'department')->get();
+        $doctor = Doctor::query()->where('user_id', '=', Auth::id())->with('user', 'department', 'appointments')->first();
         // $appointments = auth()->User()->patient->appointments()->with('doctor','department')->get();
-        return view('patient.dashboard', compact('doctor'));
+        return view('doctor.dashboard', compact('doctor'));
 
         // $user=Auth::user();
         // $doctor =Doctor::where('user_id',$user->id)->firstOrFail();

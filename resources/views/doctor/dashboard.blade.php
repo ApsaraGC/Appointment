@@ -1,9 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
+            <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-800 leading-tight">
                 {{ __('Doctor Dashboard') }}
             </h2>
+            <a href="{{ route('doctor.appointments') }}" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
+                View Appointment
+            </a>
         </div>
     </x-slot>
 
@@ -44,7 +47,7 @@
                         </div>
 
                         <!-- Previous Appointments -->
-                        <div class="mt-8">
+                        {{-- <div class="mt-8">
                             <h2 class="text-2xl font-semibold mb-5 text-gray-700 dark:text-gray-300">Previous Appointments:</h2>
                             <div class="mb-4">
                                 <p class="text-gray-800 dark:text-gray-200">Total: {{ count($previousAppointments) }}</p>
@@ -66,7 +69,7 @@
                                     @endforeach
                                 </div>
                             @endif
-                        </div>
+                        </div> --}}
 
                     </div>
                 </div>

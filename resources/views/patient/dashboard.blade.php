@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-2xl text-gray-900 dark:text-gray-100 leading-tight">
+            <h2 class="font-semibold text-2xl text-gray-900 dark:text-gray-700 leading-tight">
                 {{ __('Patient Dashboard') }}
             </h2>
             <a href="{{ route('appointment.create') }}" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">

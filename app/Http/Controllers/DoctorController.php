@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\Department;
+use App\Models\Schedule;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,14 +17,10 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        //
-        // $doctor = auth()->user()->doctor;
-        // $appointments = $doctor->appointments()->with('patient', 'department')->get();
-        // return view('doctor.appointments', compact('appointments'));
 
-        $appointments = Appointment::with('patient', 'department')->get();
-        // return view('doctor.appointments', compact('appointments'));
-        return view('doctor.dashboard', compact('dashboard'));
+        $doctors=Doctor::all();//retrieves all doctors from dabatase
+
+        return view('doctor.index', compact('doctors'));
     }
 
     /**
@@ -31,8 +28,7 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        //
-        // $doctors= Doctor::all();
+
         $departments = Department::all();
         return view('doctor.create', compact('departments'));
     }
@@ -43,6 +39,7 @@ class DoctorController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+        //validates the request data for creating a doctor
         $doctor_validate =  $request->validate([
             'position' => 'required|string',
             'gender' => 'required|in:Male,Female,others',
@@ -50,20 +47,23 @@ class DoctorController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'experience' => 'required|integer',
             'phone_number' => 'nullable|numeric',
-            'department_id' => 'required|exists:departments,id',
+            'department_id' => 'required|exists:departments,id',//department ma department id hunu paro
         ]);
         // dd($request);
-
+       //retrieves original name of upload file from request
         $name = $request->file('image')->getClientOriginalName();
+        //moves uploaded file from its temporary location images folder
         $request->file('image')->move(public_path('images'), $name);
+
         $doctor_validate['image'] = $name;
+        //add id of auth user to doctor_validate array
         $doctor_validate['user_id'] = $user->id;
-        // dd($doctor_validate);
+        // dd($doctor_validate); dump and die
 
         Doctor::create($doctor_validate);
 
-        return redirect()->route('doctor.appointments', $user->doctor->id);
-        // return redirect()->route('doctor.dashboard', $user->doctor->id);
+        //return redirect()->route('doctor.appointments', $user->doctor->id);
+        return redirect()->route('doctor.dashboard', $user->doctor->id);
     }
 
     /**
@@ -73,9 +73,7 @@ class DoctorController extends Controller
     {
         // dd($doctor);
         return view('doctor.show', ['doctor' => $doctor]);
-        //$doctor = Doctor::findOrFail($id);
 
-        //return view('doctor.show',compact('doctor'));
     }
 
     /**
@@ -103,7 +101,7 @@ class DoctorController extends Controller
             'phone_number' => 'nullable|numeric',
         ]);
 
-        $doctor = Doctor::findOrFail($id);
+        $doctor = Doctor::findOrFail($id);//find doctor by id
         $doctor->update(['shift' => $request->shift]);
 
         return redirect()->route('doctor.dashboard');
@@ -116,42 +114,28 @@ class DoctorController extends Controller
     {
         //
     }
-    public function appointments($doctorId)
+    public function appointments()
     {
         // Retrieve appointments where the doctor is assigned
-        $appointments = Appointment::where('doctor_id', $doctorId)
-            ->with('patient', 'department')
-            ->get();
+        //$doctor = Doctor::where('user_id', Auth::id())->firstOrFail();
+        $doctor= Auth::user()->doctor;
+        //filters appoinment records where doctor_id match currrent doctor
+        $appointments = Appointment::where('doctor_id', $doctor->id)
+            ->with('patient', 'department')//retrieves pateint & depertment data in same query
+            ->get();//executes the query and retrieves all matching appointments
+
         return view('doctor.appointments', compact('appointments'));
     }
     public function dashboard()
     {
-        $doctor = Doctor::query()->where('user_id', '=', Auth::id())->with('user', 'department', 'appointments')->first();
-        // $appointments = auth()->User()->patient->appointments()->with('doctor','department')->get();
-        return view('doctor.dashboard', compact('doctor'));
+        $doctor = Doctor::where('user_id', Auth::id())->with('appointments.patient', 'department')->first();
 
-        // $user=Auth::user();
-        // $doctor =Doctor::where('user_id',$user->id)->firstOrFail();
-        // $appointments =Appointment::where('doctor_id',$doctor->id)->get();
+    if (!$doctor) {
+        return redirect()->route('doctor.create')->with('error', 'Please complete your profile before accessing the dashboard.');
+    }
 
-        // $today = now()->startOfDay();
-        // $tommorrow =now()->addDay()->startOfDay();
+    return view('doctor.dashboard', compact('doctor'));
 
-        // $todayAppointments =[];
-        // $previousAppointments=[];
-
-        // foreach($appointments as $appointment){
-        //     if($appointment->date->isSameDay($today)){
-        //         $todayAppointments[]= $appointment;
-        //     }else{
-        //         $previousAppointments[]=$appointment;
-        //     }
-        // }
-        // return view('doctor.dashboard',[
-        //     'doctor'=>$doctor,
-        //     'todatAppointments'=>$todayAppointments,
-        //     'previousAppointments'=>$previousAppointments
-        // ]);
     }
     public function findDr(Request $request)
     {
@@ -161,9 +145,39 @@ class DoctorController extends Controller
         $department_doctors = Doctor::where('department_id', $department_id)->get();
         // dd($department_doctors);
         return view('doctor.doctor', [
-            'department_doctors' => $department_doctors,
+            'department_doctors' => $department_doctors,//list of doctor with specific department
             'patient_id' => $request->input('patient_id'),
             'department_id' => $department_id,
         ]);
+    }
+    public function schedule()
+    {
+        $doctor= Auth::user()->doctor;
+        if (!$doctor) {
+            abort(404, 'Doctor profile not found.');
+        }
+       // $doctor = auth()->user()->doctor; // Assuming Doctor model is linked to User
+        $schedules = Schedule::where('doctor_id', $doctor->id)->get();
+        return view('doctor.schedule', compact('schedules'));
+    }
+    public function storeSchedule(Request $request)
+    {
+        $request->validate([
+            'available_from' => 'required|date',
+            'available_to' => 'required|date|after:available_from',
+        ]);
+        $doctor = Auth::user()->doctor; // Ensure this is valid
+        if (!$doctor) {
+            abort(404, 'Doctor profile not found.');
+        }
+
+
+        Schedule::create([
+            'doctor_id' => $doctor->id,
+            'available_from' => $request->available_from,
+            'available_to' => $request->available_to,
+        ]);
+
+        return redirect()->route('doctor.schedules')->with('success', 'Schedule added successfully.');
     }
 }

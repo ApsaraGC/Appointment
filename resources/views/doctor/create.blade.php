@@ -7,13 +7,14 @@
     <title>Doctor</title>
     <style>
         .container {
-            max-width: 700px;
+            max-width: 400px;
             margin: 0 auto;
+            padding:20px;
         }
 
-        .form-group {
+        /* .form-group {
             margin-bottom: 1.5rem;
-        }
+        } */
 
         .form-group label {
             display: block;
@@ -29,10 +30,11 @@
         }
 
         .btn-primary {
-            background-color: #007bff;
+            background-color: #ff8000;
             color: #fff;
             border: none;
             padding: 0.5rem 1rem;
+            margin:5px;
             border-radius: 4px;
             cursor: pointer;
         }
@@ -121,16 +123,14 @@
                     <button type="submit" class="btn btn-primary">Save Doctor</button>
                 </form>
 
-                <div class="flex items-center justify-end">
+                {{-- <div class="flex items-center justify-end">
             <x-primary-button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md shadow-sm">
                 Add Doctor
             </x-primary-button>
-        </div>
+        </div> --}}
             </form>
         </div>
-        <button>
-            <a href="{{route('doctor.index')}}">List</a>
-        </button>
+      
     </x-app-layout>
 </body>
 

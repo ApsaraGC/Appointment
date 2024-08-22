@@ -16,10 +16,10 @@
     </x-slot>
      <!-- Notification Dropdown -->
      <div class="hidden sm:flex sm:items-center">
-        <x-dropdown align="right" width="50">
+        <x-dropdown align="left" width="50">
             <x-slot name="trigger">
                 <button
-                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition ease-in-out duration-150">
                     <div>Notification</div>
                 </button>
             </x-slot>

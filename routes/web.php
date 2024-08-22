@@ -4,6 +4,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ScheduleController;
 use App\Models\Appointment;
 use Illuminate\Support\Facades\Route;
@@ -58,10 +59,10 @@ Route::get('/patient/appointments', [PatientController::class, 'appointments'])-
 Route::get('/patient/appointments/{id}', [PatientController::class, 'show'])->name('patient.appointment.show');
 Route::delete('/patient/appointments/{id}/cancel', [PatientController::class, 'destory'])->name('patient.appointment.destory');
 
-
-Route::get('/appointment/create',[AppointmentController::class,'create'])->name('appointment.create');
-Route::post('/appointment/store',[AppointmentController::class, 'store'])->name('appointment.store');
-Route::get('/appointment/show', [AppointmentController::class, 'show'])->name('appointment.show');
+Route::resource('appointment', AppointmentController::class);
+// Route::get('/appointment/create',[AppointmentController::class,'create'])->name('appointment.create');
+// Route::post('/appointment/store',[AppointmentController::class, 'store'])->name('appointment.store');
+// Route::get('/appointment/show', [AppointmentController::class, 'show'])->name('appointment.show');
 
 
 
@@ -70,3 +71,10 @@ Route::get('patient/schedules', [PatientController::class, 'showAvailableSchedul
 Route::get('/appointment/{appointment}/reschedule', [AppointmentController::class, 'reschedule'])->name('appointment.reschedule');
 Route::patch('/appointment/{appointment}/reschedule', [AppointmentController::class, 'rescheduleStore'])->name('appointment.rescheduleStore');
 
+Route::resource('admin/doctors', AdminController::class);
+
+// Route to the Admin Dashboard
+Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+
+// Optional: Route for a specific doctor's details (if needed)
+Route::get('/admin/doctors/{doctor}', [AdminController::class, 'adminDoctor'])->name('admin.doctor');

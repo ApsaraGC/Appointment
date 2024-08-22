@@ -26,7 +26,7 @@
 
 <x-slot name="content">
     <!-- Notifications Section -->
-
+{{-- @dd($notifications) --}}
     @if ($notifications->isNotEmpty())
         <div
             class="bg-yellow-100 dark:bg-yellow-900 border border-yellow-300 dark:border-yellow-700 rounded-md p-4 max-h-80 overflow-y-auto w-80">

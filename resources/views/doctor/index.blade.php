@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Doctor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         table {
             width: 100%;
@@ -89,8 +90,11 @@
                 </tr>
             @endforelse
         </tbody>
-    </table>
 
+    </table>
+    <div style="margin-top:20px;">
+        {{ $doctors->links() }}
+    </div>
     <br>
     <a href="{{ route('doctor.create') }}" class="btn-primary">Add New Doctor</a>
     <br>

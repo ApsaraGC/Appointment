@@ -18,7 +18,7 @@ class DoctorController extends Controller
     public function index()
     {
 
-        $doctors=Doctor::all();//retrieves all doctors from dabatase
+        $doctors=Doctor::paginate(10);//retrieves all doctors from dabatase
 
         return view('doctor.index', compact('doctors'));
     }

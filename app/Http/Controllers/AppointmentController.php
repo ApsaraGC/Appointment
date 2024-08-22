@@ -133,10 +133,7 @@ class AppointmentController extends Controller
         // Update the appointment date
         $appointment->date_time = $request->date;
         $appointment ->save();
-        // $appointment->update([
-        //     'date' => $request->date,
-        // ]);
-        // dd(1);
+        
         Notification::send($appointment->patient->user,new AppointmentRescheduled($appointment));
         return redirect()->route('doctor.dashboard')->with('status', [
             'message' => 'Appointment rescheduled successfully',

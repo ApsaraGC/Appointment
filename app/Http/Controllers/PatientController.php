@@ -34,11 +34,13 @@ class PatientController extends Controller
 
     public function dashboard()
     {
+
         $user = Auth::user();
 
         $appointments = Appointment::with('doctor', 'department')->get();
         $notifications = $user->notifications()->latest()->get();
         // $appointments = auth()->User()->patient->appointments()->with('doctor','department')->get();
+
         return view('patient.dashboard',[
             'appointments'=> $appointments,
             'notifications'=> $notifications
@@ -87,7 +89,7 @@ class PatientController extends Controller
         ]);
 
 
-        return redirect()->route('patient.index');
+        return redirect()->route('patient.dashboard');
     }
 
     /**

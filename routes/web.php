@@ -58,23 +58,15 @@ Route::get('/patient/dashboard',[PatientController::class,'dashboard'])->name('p
 Route::get('/patient/appointments', [PatientController::class, 'appointments'])->name('patient.appointments');
 Route::get('/patient/appointments/{id}', [PatientController::class, 'show'])->name('patient.appointment.show');
 Route::delete('/patient/appointments/{id}/cancel', [PatientController::class, 'destory'])->name('patient.appointment.destory');
+Route::get('patient/schedules', [PatientController::class, 'showAvailableSchedules'])->name('patient.schedules');
 
 Route::resource('appointment', AppointmentController::class);
-// Route::get('/appointment/create',[AppointmentController::class,'create'])->name('appointment.create');
-// Route::post('/appointment/store',[AppointmentController::class, 'store'])->name('appointment.store');
-// Route::get('/appointment/show', [AppointmentController::class, 'show'])->name('appointment.show');
-
-
-
-Route::get('patient/schedules', [PatientController::class, 'showAvailableSchedules'])->name('patient.schedules');
 
 Route::get('/appointment/{appointment}/reschedule', [AppointmentController::class, 'reschedule'])->name('appointment.reschedule');
 Route::patch('/appointment/{appointment}/reschedule', [AppointmentController::class, 'rescheduleStore'])->name('appointment.rescheduleStore');
 
-Route::resource('admin/doctors', AdminController::class);
+
 
 // Route to the Admin Dashboard
+Route::resource('admin/doctors', AdminController::class);
 Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-
-// Optional: Route for a specific doctor's details (if needed)
-Route::get('/admin/doctors/{doctor}', [AdminController::class, 'adminDoctor'])->name('admin.doctor');

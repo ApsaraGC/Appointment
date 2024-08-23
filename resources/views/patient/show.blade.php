@@ -1,5 +1,3 @@
-<!-- resources/views/patient/appointment/show.blade.php -->
-
 <x-app-layout>
 <div class="container">
     <h1>Appointment Details</h1>

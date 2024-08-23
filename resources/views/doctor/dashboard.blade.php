@@ -4,7 +4,7 @@
             <h2 class="font-semibold text-2xl text-purple-800 dark:text-purple-800 leading-tight">
                 {{ __('Doctor') }}
             </h2>
-            <a href="{{ route('doctor.appointments') }}" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
+            <a href="{{ route('doctor.appointments') }}" class="text-black-600 hover:text-black-800 dark:text-black-400 dark:hover:text-black-300">
                 View All Appointments
             </a>
         </div>
@@ -12,7 +12,7 @@
 
     <div class="py-12 bg-doctor-image" >
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-brown-100 dark:bg-orange-900 overflow-hidden shadow-lg sm:rounded-lg bg-doctor-image">
+            <div class="dark:bg-orange-900 overflow-hidden shadow-lg sm:rounded-lg bg-doctor-image">
                 <div class="p-6 text-green-9000 dark:text-green-1000">
                     <!-- Doctor Information -->
                     <div class="mb-20 border-b border-purple-300 dark:border-purple-600 pb-4">
@@ -26,21 +26,15 @@
                         <a href="{{ route('doctor.schedules') }}">Schedule</a>
                     </button>
                     <br>
-
-                    <!-- Appointments Sections -->
-                    <div class="space-y-10">
-                        <!-- Content here -->
-                    </div>
                 </div>
             </div>
         </div>
     </div>
     <style>
         .bg-doctor-image {
-    background-image: url('/images/Doctor.jpg');
+    background-image: url('/images/hospital.jpg');
     background-size: cover;
     background-position: center;
 }
-
     </style>
 </x-app-layout>

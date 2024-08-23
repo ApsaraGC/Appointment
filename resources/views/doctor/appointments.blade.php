@@ -62,7 +62,7 @@
         }
 
         .btn-primary {
-            background-color: #046139;
+            background-color: #1356ae;
             color: white;
         }
 
@@ -71,18 +71,18 @@
         }
 
         table th {
-            background-color: #0d6a16;
+            background-color: #1356ae;
             color: white;
         }
 
         table tbody tr:nth-child(even) {
-            background-color:#77e1a2;
+            background-color:#bc60a8;
              ;
             color:black;
         }
 
         table tbody tr:nth-child(odd) {
-            background-color: #a0e3b5;
+            background-color: #d685c9;
             color:white;
         }
 
@@ -92,7 +92,7 @@
         }
 
         .bg-doctor-image {
-    background-image: url('/images/Doctor.jpg');
+    background-image: url('/images/nurse.jpg');
     background-size: cover;
     background-position: center;
 }

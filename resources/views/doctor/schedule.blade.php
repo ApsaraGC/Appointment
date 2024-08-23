@@ -13,7 +13,9 @@
                 line-height: 1.6;
                 margin: 0;
                 padding: 0;
-                background-color: #f4f4f4;
+                background-image: url('/images/Doctor.jpg');
+
+
             }
 
             h1, h2 {
@@ -21,9 +23,11 @@
             }
 
             .container {
-                width: 80%;
+
+                width: 50%;
                 margin: 0 auto;
                 padding: 20px;
+
                 background: #fff;
                 border-radius: 8px;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -46,7 +50,7 @@
             }
 
             th {
-                background-color: #f2f2f2;
+                background-color: #ee9f9f;
             }
 
             tr:nth-child(even) {

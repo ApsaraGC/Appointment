@@ -2,7 +2,10 @@
     <x-slot name="header">
         <div class="flex justify-between items-center bg-gray-100 p-4 rounded-lg shadow-md">
             <h2 class="font-semibold text-2xl text-pink-800 leading-tight">
-                {{ __('Patient Dashboard') }}
+                <h1 class="text-2xl font-bold mb-6 text-purple-900">
+                    Hello, {{ Auth::user()->name }}.
+                </h1>
+
             </h2>
             <div class="space-x-4">
                 <a href="{{ route('appointment.create') }}" class="text-blue-600 hover:text-blue-800">
@@ -26,10 +29,9 @@
 
 <x-slot name="content">
     <!-- Notifications Section -->
-{{-- @dd($notifications) --}}
     @if ($notifications->isNotEmpty())
         <div
-            class="bg-yellow-100 dark:bg-yellow-900 border border-yellow-300 dark:border-yellow-700 rounded-md p-4 max-h-80 overflow-y-auto w-80">
+            class="bg-pink-100 dark:bg-white-900 border border-yellow-300 dark:border-yellow-700 rounded-md p-4 max-h-80 overflow-y-auto w-80">
             <div class="font-semibold">Appointment Rescheduled</div>
             <hr>
 
@@ -58,19 +60,17 @@
         </x-dropdown>
      </div>
 
-    <div class="py-16 bg-gray-50 min-h-screen">
+
         <div class="max-w-6xl mx-auto px-4 lg:px-6">
             <!-- Profile Section -->
-            <h1 class="text-2xl font-bold mb-6 text-purple-900">
-                Hello, {{ Auth::user()->name }}. Your Appointments
-            </h1>
+
 
             <!-- Appointments Section -->
             <div class="bg-white shadow-md rounded-lg overflow-hidden">
                 @if ($appointments->isEmpty())
                     <p class="text-center text-gray-600 py-6">No upcoming appointments</p>
                 @else
-                    <ul class="divide-y divide-gray-200">
+                    {{-- <ul class="divide-y divide-gray-200">
                         @foreach ($appointments as $appointment)
                             @php
                                 $date = \Carbon\Carbon::parse($appointment->date_time)->format('M d, Y H:i');
@@ -93,10 +93,17 @@
                                     </div>
                                 </div>
                             </li>
-                        @endforeach
+                        @endforeach --}}
                     </ul>
                 @endif
             </div>
         </div>
     </div>
+    <style>
+        .image {
+
+    background-size: cover;
+    background-position: center;
+}
+    </style>
 </x-app-layout>

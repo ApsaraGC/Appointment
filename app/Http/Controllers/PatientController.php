@@ -27,8 +27,6 @@ class PatientController extends Controller
 
     // Fetch the appointments for the authenticated patient
     $appointments = $user->patient->appointments()->with('doctor', 'department')->get();
-        //$appointments = Appointment::with('doctor', 'department')->get();
-        // $appointments = auth()->User()->patient->appointments()->with('doctor','department')->get();
         return view('patient.dashboard', compact('appointments'));
     }
 
@@ -53,12 +51,11 @@ class PatientController extends Controller
     public function create()
     {
 
-        //
-        // Fetch doctors and departments to display in the form
+
         $doctors = Doctor::all();
         $departments = Department::all();
         return view('patient.create', compact('doctors', 'departments'));
-        // return view('patient.create');
+
     }
 
     /**
@@ -76,7 +73,7 @@ class PatientController extends Controller
             'description' => 'nullable|string'
         ]);
 
-        // dd($patient);
+
 
         Patient::create([
             'user_id' => Auth::user()->id,
@@ -97,9 +94,7 @@ class PatientController extends Controller
      */
     public function show($id)
     {
-        //
-        // $patient = Patient::findOrFail($id); // Find the patient by ID
-        // return view('patient.show', compact('patient'));
+
         $appointment = Appointment::with('doctor', 'department')->findOrFail($id);
 
         // Optionally, check if the appointment belongs to the authenticated patient
@@ -154,11 +149,6 @@ class PatientController extends Controller
         }
 
         return redirect()->route('patient.appointments')->with('error', 'Appointment not found.');
-        //     //
-        //     $appointment = Appointment::findOrFail($id); // Find the appointment by ID
-        //     $appointment->delete();
-
-        //    return redirect()->route('patient.appointments');
     }
     public function appointments()
     {
@@ -170,7 +160,6 @@ class PatientController extends Controller
     }
     public function showAvailableSchedules()
     {
-       // $schedules = Schedule::with('doctor')->where('available_from', '>', now())->get();
        $schedules = Schedule::all();
         return view('patient.schedules', compact('schedules'));
     }

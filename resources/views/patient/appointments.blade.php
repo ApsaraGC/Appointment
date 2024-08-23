@@ -19,7 +19,7 @@
                 <tbody>
                     @foreach($appointments as $appointment)
                         <tr>
-                            <td>{{ $appointment->date_time }}</td>
+                            <td >{{ $appointment->date_time }}</td>
                             <td>{{ $appointment->patient->user->name }}</td>
                             <td>{{ $appointment->doctor->user->name }}</td>
                             <td>{{ $appointment->department->name }}</td>
@@ -30,8 +30,7 @@
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Cancel</button>
                                 </form>
-                                {{-- <a href="{{ route('patient.appointment.show', $appointment->id) }}" class="btn btn-info">View</a> --}}
-                            </td>
+                                                           </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -57,6 +56,7 @@
 
         .appointments-table {
             width: 100%;
+            background-color: #f4f4f4;
             border-collapse: collapse;
             margin-bottom: 20px;
         }

@@ -126,8 +126,6 @@ a:hover {
                     <x-input-label for="number" :value="__('Phone Number')" />
                     <x-text-input id="number" class="block mt-1 w-full" type="text" name="number" :value="old('number')" autofocus autocomplete="number" />
                     <x-input-error :messages="$errors->get('number')" class="mt-2" />
-                    <!-- <label for="phone_number">Phone Number</label>
-            <input type="tel" id="phone_number" name="phone_number" class="form-control" placeholder="123-456-7890"> -->
                 </div>
                 <div class="form-group">
                     <div>
@@ -156,9 +154,6 @@ a:hover {
 
 
                 <div class="form-group">
-                    <!-- <label for="experience">Experience (years)</label>
-            <input type="number" id="experience" name="experience" class="form-control" >
-            <x-input-error :messages="$errors->get('email')" class="mt-2" /> -->
                     <x-input-label for="description" :value="__('Description')" />
                     <x-text-input id="description" class="block mt-1 w-full" type="text" name="description" :value="old('description')" autofocus autocomplete="description" />
                     <x-input-error :messages="$errors->get('description')" class="mt-2" />
@@ -167,18 +162,10 @@ a:hover {
                 <form action="{{route('patient.store')}}" method="POST">
                     <button type="submit" class="btn btn-primary">Save Patient</button>
                 </form>
-                {{-- <form action="{{route('patient.index')}}" method="POST">
-                    <button type="submit" class="btn btn-primary">List</button>
-                </form> --}}
+
                 <br>
             </form>
         </div>
-        {{-- <x-primary-button class="ms-4">
-                Add Patient
-            </x-primary-button> --}}
-        {{-- <button>
-             <a href="{{route('patient.index')}}">List</a>
-        </button> --}}
     </x-app-layout>
 </body>
 

@@ -20,9 +20,7 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        //
         $appointments = Appointment::with('doctor', 'department')->get();
-        // $appointments = auth()->User()->patient->appointments()->with('doctor','department')->get();
         return view('appointment.create', compact('appointments'));
     }
 
@@ -36,14 +34,12 @@ class AppointmentController extends Controller
         $departmentId = $request->input('department_id');
 
         $doctors=[];
-       // $doctors = $departmentId ? Doctor::where('department_id', $departmentId)->get() : Doctor::all();
         if($departmentId){
             $doctors= Doctor::where('department_id',$departmentId)->get();
         }else{
 
         $doctors = Doctor::all();
         }
-       // dd($doctors, $departments);
         return view('appointment.create', [
             'departments' => $departments,
             'doctors' => $doctors,
@@ -57,8 +53,6 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
-
         $user =Auth::user();
         $patient =Patient::find($user->patient->id);
 
@@ -70,7 +64,6 @@ class AppointmentController extends Controller
         Appointment::create($appointment_validate);
 
         return redirect()->route('patient.dashboard')->with('status',[
-        //return redirect()->route('appointment.show')->with('status',[
             'message'=>'Booked Sucessfully',
             'type'=>'success'
         ]);
@@ -113,14 +106,14 @@ class AppointmentController extends Controller
     }
 
     public function reschedule(Appointment $appointment){
-        $doctor_schedule = Schedule::query()
+        $doctorSchedule = Schedule::query()
         ->where('doctor_id', '=', $appointment->doctor_id)
         ->with('doctor')
         ->get();
 
     return view('appointment.reschedule', [
         'appointment' => $appointment,
-        'doctor_schedule' => $doctor_schedule,
+        'doctorSchedule' => $doctorSchedule,
     ]);
 }
     public function rescheduleStore(Request $request, Appointment $appointment)
@@ -133,7 +126,7 @@ class AppointmentController extends Controller
         // Update the appointment date
         $appointment->date_time = $request->date;
         $appointment ->save();
-        
+
         Notification::send($appointment->patient->user,new AppointmentRescheduled($appointment));
         return redirect()->route('doctor.dashboard')->with('status', [
             'message' => 'Appointment rescheduled successfully',

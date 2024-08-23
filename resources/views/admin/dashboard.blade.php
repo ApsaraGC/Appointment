@@ -11,15 +11,15 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Card 1: Total Patients -->
-                <x-dashboard-card title="Total Patients" content="{{ $total_patient }}"
+                <x-dashboard-card title="Total Patients" content="{{ $totalPatient }}"
                     route="{{ route('patient.create') }}" />
 
                 <!-- Card 2: Total Doctors -->
-                <x-dashboard-card title="Total Doctors" content="{{ $total_doctor }}"
+                <x-dashboard-card title="Total Doctors" content="{{ $totalDoctor }}"
                     route="{{ route('doctor.index') }}" />
 
                 <!-- Card 3: Total Appointments -->
-                <x-dashboard-card title="Total Appointments" content="{{ $total_appointment }}"
+                <x-dashboard-card title="Total Appointments" content="{{ $totalAppointment }}"
                     route="{{ route('appointment.index') }}" />
             </div>
         </div>

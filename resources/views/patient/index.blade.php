@@ -25,14 +25,6 @@
                     <td>{{ $appointment->department->name }}</td>
                     <td>{{ $appointment->status }}</td>
                     <td>{{ $appointment->date_time }}</td>
-                    
-                    <td>
-                        {{-- <!-- <form action="{{ route('patient.cancelAppointment', $appointment->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to cancel this appointment?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit">Cancel</button>
-                        </form> --> --}}
-                    </td>
                 </tr>
             @endforeach
         </tbody>

@@ -49,7 +49,7 @@ class DoctorController extends Controller
             'phone_number' => 'nullable|numeric',
             'department_id' => 'required|exists:departments,id',//department ma department id hunu paro
         ]);
-        // dd($request);
+
        //retrieves original name of upload file from request
         $name = $request->file('image')->getClientOriginalName();
         //moves uploaded file from its temporary location images folder
@@ -59,10 +59,7 @@ class DoctorController extends Controller
         //add id of auth user to doctor_validate array
         $doctor_validate['user_id'] = $user->id;
         // dd($doctor_validate); dump and die
-
         Doctor::create($doctor_validate);
-
-        //return redirect()->route('doctor.appointments', $user->doctor->id);
         return redirect()->route('doctor.dashboard', $user->doctor->id);
     }
 
@@ -71,7 +68,6 @@ class DoctorController extends Controller
      */
     public function show(Doctor $doctor)
     {
-        // dd($doctor);
         return view('doctor.show', ['doctor' => $doctor]);
 
     }
@@ -116,8 +112,6 @@ class DoctorController extends Controller
     }
     public function appointments()
     {
-        // Retrieve appointments where the doctor is assigned
-        //$doctor = Doctor::where('user_id', Auth::id())->firstOrFail();
         $doctor= Auth::user()->doctor;
         //filters appoinment records where doctor_id match currrent doctor
         $appointments = Appointment::where('doctor_id', $doctor->id)

@@ -30,7 +30,7 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
-        // dd($user->role);
+
         if ($user->role == 'patient') {
             return redirect()->route('patient.dashboard');
 
@@ -44,7 +44,7 @@ class AuthenticatedSessionController extends Controller
 
         }
 
-        // abort(404);
+        
     }
 
     /**

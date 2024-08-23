@@ -54,7 +54,6 @@ Route::post('/patient/store', [PatientController::class, 'store'])->name('patien
 Route::get('/patient',[PatientController::class,'index'])->name('patient.index');
 //Display dashboard
 Route::get('/patient/dashboard',[PatientController::class,'dashboard'])->name('patient.dashboard');
-// Route::get('/patient/appointments/{patientId}', [PatientController::class, 'appointments'])->name('patient.appointments');
 Route::get('/patient/appointments', [PatientController::class, 'appointments'])->name('patient.appointments');
 Route::get('/patient/appointments/{id}', [PatientController::class, 'show'])->name('patient.appointment.show');
 Route::delete('/patient/appointments/{id}/cancel', [PatientController::class, 'destory'])->name('patient.appointment.destory');

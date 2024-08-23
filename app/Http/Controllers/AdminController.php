@@ -16,13 +16,13 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
-        $total_doctor = Doctor::count();
-        $total_patient = Patient::count();
-        $total_appointment = Appointment::count();
+
+        $totalDoctor = Doctor::count();
+        $totalPatient = Patient::count();
+        $totalAppointment = Appointment::count();
 
         // Pass the counts to the view
-        return view('admin.dashboard', compact('total_doctor', 'total_patient', 'total_appointment'));
+        return view('admin.dashboard', compact('totalDoctor', 'totalPatient', 'totalAppointment'));
     }
 
     /**
@@ -41,7 +41,7 @@ class AdminController extends Controller
 
          // Validate and store data here
     $validatedData = $request->validate([
-        // Validation rules here
+
     ]);
 
     // Assuming you are creating a new Doctor record
@@ -49,7 +49,7 @@ class AdminController extends Controller
 
     // Redirect to a specific route with a success message
     return redirect()->route('doctor.index')->with('status', 'Doctor created successfully!');
-      //  return redirect()->route('admin.dashboard');
+
     }
 
     /**

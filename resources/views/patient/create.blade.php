@@ -1,45 +1,103 @@
-<!DOCTYPE html>
+
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctor</title>
+    <title>Patient Registration</title>
     <style>
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-        }
+   body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0px;
+    padding: 0;
+}
 
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
+.container {
+    max-width: 500px;
+    background-color: #ffffff;
+    padding: 50px;
+    margin: 50px auto;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
 
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
+h2 {
+    text-align: center;
+    color: #333333;
+    margin-bottom: 20px;
+}
 
-        .form-control {
-            width: 100%;
-            padding: 0.5rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
+.form-group {
+    margin-bottom: 5px;
+}
 
-        .btn-primary {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555555;
+}
 
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #f7f7f7;
+}
+
+.form-group select {
+    height: 40px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #66afe9;
+    box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+.btn-primary {
+    display: block;
+    width: 50%;
+    padding: 10px;
+    background-color: #ff8800;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    margin:50px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+a {
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+    color: #ff8400d0;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.x-input-error {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 5px;
+}
+
     </style>
 </head>
 
@@ -109,14 +167,18 @@
                 <form action="{{route('patient.store')}}" method="POST">
                     <button type="submit" class="btn btn-primary">Save Patient</button>
                 </form>
+                {{-- <form action="{{route('patient.index')}}" method="POST">
+                    <button type="submit" class="btn btn-primary">List</button>
+                </form> --}}
+                <br>
             </form>
         </div>
-        <!-- <x-primary-button class="ms-4">
+        {{-- <x-primary-button class="ms-4">
                 Add Patient
-            </x-primary-button>
-        <button> -->
-            <a href="{{route('patient.index')}}">List</a>
-        </button>
+            </x-primary-button> --}}
+        {{-- <button>
+             <a href="{{route('patient.index')}}">List</a>
+        </button> --}}
     </x-app-layout>
 </body>
 

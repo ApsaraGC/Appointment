@@ -16,11 +16,12 @@ class Doctor extends Model
         return $this->belongsTo(User::class);
     }
     public function department()
-    {
-        return $this->belongsTo(Department::class);
+    { //each doctor belongs to one department
+        return $this->belongsTo(Department::class);//many to one
     }
     public function appointments()
     {
-        return $this->hasMany(Appointment::class);
+         //1 doctor has many appointment
+        return $this->hasMany(Appointment::class);//one to many
     }
 }

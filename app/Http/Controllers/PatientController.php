@@ -6,6 +6,7 @@ use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Models\Department;
 use App\Models\Patient;
+use App\Models\Schedule;
 use App\Models\Doctor;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,16 +17,34 @@ class PatientController extends Controller
      */
     public function index()
     {
-        //
-        $appointments = Appointment::with('doctor', 'department')->get();
+        $user = Auth::user();
+
+    // Check if the user has an associated patient record
+    if (!$user || !$user->patient) {
+        // Handle the case where the user does not have a patient record
+        return redirect()->route('home')->with('error', 'You do not have access to this resource.');
+    }
+
+    // Fetch the appointments for the authenticated patient
+    $appointments = $user->patient->appointments()->with('doctor', 'department')->get();
+        //$appointments = Appointment::with('doctor', 'department')->get();
         // $appointments = auth()->User()->patient->appointments()->with('doctor','department')->get();
         return view('patient.dashboard', compact('appointments'));
     }
 
-    public function dashboard(){
+    public function dashboard()
+    {
+
+        $user = Auth::user();
+
         $appointments = Appointment::with('doctor', 'department')->get();
+        $notifications = $user->notifications()->latest()->get();
         // $appointments = auth()->User()->patient->appointments()->with('doctor','department')->get();
-        return view('patient.dashboard', compact('appointments'));
+
+        return view('patient.dashboard',[
+            'appointments'=> $appointments,
+            'notifications'=> $notifications
+        ]);
     }
 
     /**
@@ -70,7 +89,7 @@ class PatientController extends Controller
         ]);
 
 
-        return redirect()->route('patient.index');
+        return redirect()->route('patient.dashboard');
     }
 
     /**
@@ -127,18 +146,32 @@ class PatientController extends Controller
      */
     public function destroy(string $id)
     {
-        //
-        $appointment = Appointment::findOrFail($id); // Find the appointment by ID
-        $appointment->delete();
+        $appointment = Appointment::find($id);
 
-        return redirect()->route('patient.appointments');
+        if ($appointment) {
+            $appointment->delete();
+            return redirect()->route('patient.appointments')->with('success', 'Appointment canceled successfully!');
+        }
+
+        return redirect()->route('patient.appointments')->with('error', 'Appointment not found.');
+        //     //
+        //     $appointment = Appointment::findOrFail($id); // Find the appointment by ID
+        //     $appointment->delete();
+
+        //    return redirect()->route('patient.appointments');
     }
     public function appointments()
-{
-    // Fetch the authenticated patient's appointments
-    $patient = Auth::user()->patient;
-    $appointments = $patient->appointments()->with('doctor', 'department')->get();
+    {
+        // Fetch the authenticated patient's appointments
+        $patient = Auth::user()->patient;
+        $appointments = $patient->appointments()->with('doctor', 'department')->get();
 
-    return view('patient.appointments', compact('appointments'));
-}
+        return view('patient.appointments', compact('appointments'));
+    }
+    public function showAvailableSchedules()
+    {
+       // $schedules = Schedule::with('doctor')->where('available_from', '>', now())->get();
+       $schedules = Schedule::all();
+        return view('patient.schedules', compact('schedules'));
+    }
 }

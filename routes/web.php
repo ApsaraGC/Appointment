@@ -67,5 +67,5 @@ Route::patch('/appointment/{appointment}/reschedule', [AppointmentController::cl
 
 
 // Route to the Admin Dashboard
-Route::resource('admin/doctors', AdminController::class);
-Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+// Route::resource('admin/doctors', AdminController::class);
+// Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');

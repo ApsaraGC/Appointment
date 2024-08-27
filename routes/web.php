@@ -3,7 +3,7 @@
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DoctorController;
-use App\Http\Controllers\PatientController;
+use App\Http\Controllers\API\PatientController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ScheduleController;
 use App\Models\Appointment;
@@ -49,15 +49,15 @@ Route::delete('/doctor/destroy', [DoctorController::class, 'destroy'])->name('do
 
 
 // Patient Routes
-Route::get('/patient/create', [PatientController::class, 'create'])->name('patient.create');
-Route::post('/patient/store', [PatientController::class, 'store'])->name('patient.store');
-Route::get('/patient',[PatientController::class,'index'])->name('patient.index');
-//Display dashboard
-Route::get('/patient/dashboard',[PatientController::class,'dashboard'])->name('patient.dashboard');
-Route::get('/patient/appointments', [PatientController::class, 'appointments'])->name('patient.appointments');
-Route::get('/patient/appointments/{id}', [PatientController::class, 'show'])->name('patient.appointment.show');
-Route::delete('/patient/appointments/{id}/cancel', [PatientController::class, 'destory'])->name('patient.appointment.destory');
-Route::get('patient/schedules', [PatientController::class, 'showAvailableSchedules'])->name('patient.schedules');
+// Route::get('/patient/create', [PatientController::class, 'create'])->name('patient.create');
+// Route::post('/patient/store', [PatientController::class, 'store'])->name('patient.store');
+// Route::get('/patient',[PatientController::class,'index'])->name('patient.index');
+// //Display dashboard
+ //Route::get('/patient/dashboard',[PatientController::class,'dashboard'])->name('patient.dashboard');
+// Route::get('/patient/appointments', [PatientController::class, 'appointments'])->name('patient.appointments');
+// Route::get('/patient/appointments/{id}', [PatientController::class, 'show'])->name('patient.appointment.show');
+// Route::delete('/patient/appointments/{id}/cancel', [PatientController::class, 'destory'])->name('patient.appointment.destory');
+// Route::get('patient/schedules', [PatientController::class, 'showAvailableSchedules'])->name('patient.schedules');
 
 Route::resource('appointment', AppointmentController::class);
 

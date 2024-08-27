@@ -10,7 +10,7 @@ use App\Models\Schedule;
 use App\Models\Doctor;
 use Illuminate\Support\Facades\Auth;
 
-class PatientController extends Controller
+class PatientsController extends Controller
 {
     /**
      * Display a listing of the resource.
